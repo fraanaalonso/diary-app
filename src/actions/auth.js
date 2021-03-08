@@ -1,7 +1,12 @@
 import { types } from "../types/types"
 import { firebase, googleAuthProvider } from '../firebase/firebase-config'
 import { finishLoading, startLoading } from "./ui";
+import Swal from 'sweetalert2'
+
+
 //log in is a asynchronous operation, so it's useful to have a dispatch function
+
+
 export const startLoginEmailPassword = ( email, password ) => {
     return ( dispatch ) => {
         dispatch(startLoading());
@@ -13,7 +18,10 @@ export const startLoginEmailPassword = ( email, password ) => {
                 }, 1000)
             }
 
-            );
+            ).catch( e => {
+                dispatch(finishLoading());
+                Swal.fire('Fail', e.message, 'error');
+            })
     }
 }
 
@@ -26,7 +34,8 @@ export const startRegisterWithEmailPassword = ( email, password, name ) => {
                 });
                 dispatch( login(user.uid, user.displayName))
             }).catch( e => {
-                console.error( e )
+                console.error( e );
+                Swal.fire('Fail', e.message, 'error');
             })
     }
 }

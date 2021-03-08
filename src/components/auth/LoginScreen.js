@@ -5,15 +5,17 @@ import { startGoogleLogin, startLoginEmailPassword } from '../../actions/auth'
 import { useForm } from '../../hooks/useForm'
 import validator from 'validator'
 import { removeError, setError } from '../../actions/ui'
+import Swal from 'sweetalert2'
+
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
-    const {error, loading} = useSelector(state => state.ui);
+    const {loading} = useSelector(state => state.ui);
 
-    console.log( error )
+   
     const [ values, handleInputChange ] = useForm({
-        email: 'fraloal97@gmail.es',
-        password: '123456'
+        email: '',
+        password: ''
     })
 
     const {email, password} = values;
@@ -33,10 +35,12 @@ export const LoginScreen = () => {
 
     const isFormValid = () => {
         if( !validator.isEmail( email )){
-            dispatch(setError('Email format is not correct'));
+            Swal.fire('Fail', 'Email is no correct', 'error');
+            dispatch(setError('Email is no correct'))
             return false;
         }else if( password.length < 5){
-            dispatch(setError('Password too short'));
+            Swal.fire('Fail', 'Password is too short', 'error');
+            dispatch(setError('Password is too short'))
             return false;
         }
 
@@ -48,16 +52,6 @@ export const LoginScreen = () => {
             <h3 className="auth__title">Login</h3>
 
             <form onSubmit={handleLogin}>
-                { 
-                    error &&
-                    (
-                        <div className="auth__alert-error">
-                            { error }
-                        </div>
-                    )
-                
-                
-                }
                 
                 <input 
                     type="text"

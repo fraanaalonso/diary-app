@@ -2,21 +2,22 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
 import validator from 'validator'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setError, removeError } from '../../actions/ui'
 import { startRegisterWithEmailPassword } from '../../actions/auth'
+import Swal from 'sweetalert2'
+
 
 export const RegisterScreen = () => {
 
     const dispatch = useDispatch();
-    const {error} = useSelector(state => state.ui);
 
 
     const [formValues, handleInputChange] = useForm({
-        name: 'Fran',
-        email: 'fraloal97@gmail.es',
-        password: '123456',
-        password2: '123456'
+        name: '',
+        email: '',
+        password: '',
+        password2: ''
     })
 
     const { name, email, password, password2 } = formValues;
@@ -31,12 +32,15 @@ export const RegisterScreen = () => {
 
     const isFormValid = () => {
         if ( name.trim().length === 0){
+            Swal.fire('Fail', 'Name is required', 'error');
             dispatch(setError('Name is required'))
             return false
         } else if( !validator.isEmail( email )){
+            Swal.fire('Fail', 'Email is not valid', 'error');
             dispatch(setError('Email is not valid'))
             return false;
         }else if( password !== password2 || password.length < 5){
+            Swal.fire('Fail', 'Password do not match or both have a length not valid', 'error');
             dispatch(setError('Passwords do not match'))
             return false
         }
@@ -47,18 +51,7 @@ export const RegisterScreen = () => {
     <>
             <h3 className="auth__title">Register</h3>
 
-            <form onSubmit={handleRegister}>
-
-                {
-                    error &&
-                    (
-                        <div className="auth__alert-error">
-                            { error }
-                        </div>
-                    )
-
-                }
-                
+            <form onSubmit={handleRegister}>                
                 <input 
                     type="text"
                     placeholder="Name"
