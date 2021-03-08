@@ -1,13 +1,5 @@
 import { types } from "../types/types";
 
-/*Objeto a manejar
-    {
-        uid:cewvcdeveverve
-        name: 'Francisco
-    }
-
-*/
-
 
 export const authReducer = (state = {}, action) => {
     switch (action.type) {
