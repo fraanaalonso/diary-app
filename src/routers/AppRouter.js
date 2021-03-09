@@ -31,7 +31,7 @@ export const AppRouter = () => {
 
     if( flag ){
         return ( 
-            <h1>Espere...</h1>
+            <h1>Wait...</h1>
         )
     }
     return (

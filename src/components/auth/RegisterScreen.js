@@ -17,7 +17,7 @@ export const RegisterScreen = () => {
         name: '',
         email: '',
         password: '',
-        password2: ''
+        password2: '',
     })
 
     const { name, email, password, password2 } = formValues;
@@ -84,7 +84,7 @@ export const RegisterScreen = () => {
                 <input 
                     type="password"
                     placeholder="Confirm Password"
-                    name = "confirm"
+                    name = "password2"
                     className="auth__input"
                     value={password2}
                     onChange={handleInputChange}

@@ -4,7 +4,7 @@ import { finishLoading, startLoading } from "./ui";
 import Swal from 'sweetalert2'
 
 
-//log in is a asynchronous operation, so it's useful to have a dispatch function
+//log in is an asynchronous operation, so it's useful to have a dispatch function
 
 
 export const startLoginEmailPassword = ( email, password ) => {
