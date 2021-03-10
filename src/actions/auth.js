@@ -2,6 +2,7 @@ import { types } from "../types/types"
 import { firebase, googleAuthProvider } from '../firebase/firebase-config'
 import { finishLoading, startLoading } from "./ui";
 import Swal from 'sweetalert2'
+import { noteLogout } from "./notes";
 
 
 //log in is an asynchronous operation, so it's useful to have a dispatch function
@@ -62,6 +63,7 @@ export const startLogout = () => {
     return async (dispatch) =>{
         await firebase.auth().signOut();
         dispatch(logout());
+        dispatch(noteLogout());
     }
 }
 
